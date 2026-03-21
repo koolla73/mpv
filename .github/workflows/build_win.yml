@@ -16,6 +16,32 @@ jobs:
       
       - name: Install dependencies
         run: sudo apt install g++-mingw-w64-x86-64 gcc-mingw-w64-x86-64 meson mingw-w64-tools nasm ninja-build llvm
+
+      - name: Install dependencies for FFmpeg
+        run: sudo apt install libfdk-aac-dev libdrm-dev libva-dev
+
+      - name: Install FFmpeg
+        run: |
+          git clone --depth 1 --branch release/8.1-fixed https://github.com/koolla73/FFmpeg
+          cd FFmpeg
+          ./configure \
+          --arch=x86_64 \
+          --target-os=win64 \
+          --enable-gpl \
+          --enable-nonfree \
+          --enable-static \
+          --disable-shared \
+          --disable-doc \
+          --disable-decoder=libdav1d \
+          --enable-libxml2 \
+          --enable-libfdk-aac \
+          --enable-libdrm \
+          --enable-vaapi \
+          --disable-iconv \
+          --disable-zlib \
+          --disable-debug
+          make
+          sudo make install
           
       - name: Download source code
         run: git clone --depth 1 --branch release/0.38 https://github.com/mpv-player/mpv.git
