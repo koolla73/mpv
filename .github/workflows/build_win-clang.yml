@@ -42,6 +42,7 @@ jobs:
         $env:CXX_LD = 'lld'
         $env:WINDRES = 'llvm-rc'
 
+    - uses: ilammy/msvc-dev-cmd@v1
     - name: Compile mpv
       shell: pwsh
       run: .\mpv\ci\build-win32.ps1
