@@ -1,4 +1,4 @@
-name: Windows Build
+name: Windows Build Cross-Compiling Meson
 
 on:
   push:
@@ -16,32 +16,6 @@ jobs:
       
       - name: Install dependencies
         run: sudo apt install g++-mingw-w64-x86-64 gcc-mingw-w64-x86-64 meson mingw-w64-tools nasm ninja-build llvm
-
-      - name: Install dependencies for FFmpeg
-        run: sudo apt install libfdk-aac-dev libdrm-dev libva-dev
-
-      - name: Install FFmpeg
-        run: |
-          git clone --depth 1 --branch release/8.1-fixed https://github.com/koolla73/FFmpeg
-          cd FFmpeg
-          ./configure \
-          --arch=x86_64 \
-          --target-os=win64 \
-          --enable-gpl \
-          --enable-nonfree \
-          --enable-static \
-          --disable-shared \
-          --disable-doc \
-          --disable-decoder=libdav1d \
-          --enable-libxml2 \
-          --enable-libfdk-aac \
-          --enable-libdrm \
-          --enable-vaapi \
-          --disable-iconv \
-          --disable-zlib \
-          --disable-debug
-          make
-          sudo make install
           
       - name: Download source code
         run: git clone --depth 1 --branch release/0.38 https://github.com/mpv-player/mpv.git
@@ -92,8 +66,8 @@ jobs:
           
           cat <<EOF > subprojects/ffmpeg.wrap
           [wrap-git]
-          url = https://github.com/koolla73/FFmpeg-meson.git
-          revision = meson-8.1-custom
+          url = https://github.com/faojdoai324234s/FFmpeg-meson.git
+          revision = meson-8.0-custom
           depth = 1
           [provide]
           libavcodec = libavcodec_dep
@@ -105,36 +79,32 @@ jobs:
           libswscale = libswscale_dep
           EOF
 
-      - name: Copy include headers
+      - name: Copy libmpv include headers
         run: |
           mkdir -p upload/bin
           mkdir -p upload/include/mpv
           mkdir -p upload/lib
           cp -r mpv/libmpv/. upload/include/mpv
           
-      - name: Build application
+      - name: Build mpv
         run: |
           cd mpv
-          
           meson setup -Ddefault_library=static -Dprefer_static=true \
           -Dc_link_args='-static' -Dcpp_link_args='-static' \
           -Dffmpeg:default_library=static -Dlibass:default_library=static \
           -Dffmpeg:gpl=enabled -Dffmpeg:openssl=enabled \
           --cross-file cross-file.txt build
-
+          
           ninja -C build mpv.exe
-
           cp build/mpv.exe ${{github.workspace}}/upload/bin
 
-      - name: Build library
+      - name: Build libmpv
         run: |
           cd mpv
-          
           meson configure build -Dlibmpv=true -Ddefault_library=shared
-          
           ninja -C build libmpv-2.dll
 
-      - name: Copy library files
+      - name: Copy libmpv files
         run: |
           cd mpv/build
           gendef libmpv-2.dll
@@ -147,8 +117,7 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-artifact@v7
         with:
-          name: mpv-win
+          name: mpv-Windows
           path: ${{github.workspace}}/upload
           if-no-files-found: error
-          include-hidden-files: true
           retention-days: 1
