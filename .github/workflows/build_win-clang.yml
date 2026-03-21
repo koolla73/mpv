@@ -23,6 +23,7 @@ jobs:
       run: git clone --depth 1 --branch release/0.38 https://github.com/mpv-player/mpv.git
         
     - name: Initialize subprojects
+      working-directory: ${{ github.workspace }}/mpv
       shell: cmd
       run: |
         meson wrap update-db
