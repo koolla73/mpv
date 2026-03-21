@@ -1,0 +1,59 @@
+name: Windows Build Clang
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: windows-2022
+    steps:
+    - uses: actions/checkout@v6
+    
+    - name: Install dependencies
+      shell: cmd
+      run: pip install meson
+
+    - name: Download source code
+      shell: cmd
+      run: git clone --depth 1 --branch release/0.38 https://github.com/mpv-player/mpv.git
+        
+    - name: Initialize subprojects
+      shell: cmd
+      run: |
+        meson wrap update-db
+        
+        meson wrap install expat
+        meson wrap install harfbuzz
+        meson wrap install libpng
+        meson wrap install zlib
+
+    - name: Set environment variables
+      shell: pwsh
+      run: |
+        $env:CC = 'clang'
+        $env:CXX = 'clang++'
+        $env:CC_LD = 'lld'
+        $env:CXX_LD = 'lld'
+        $env:WINDRES = 'llvm-rc'
+
+    - name: Compile mpv
+      shell: pwsh
+      run: .\mpv\ci\build-win32.ps1
+
+    - name: List folders
+      shell: cmd
+      working-directory: ${{ github.workspace }}/mpv
+      run: dir /s
+      
+    - name: Upload artifact
+      uses: actions/upload-artifact@v7
+      with:
+        name: Windows-artifact
+        path: ${{github.workspace}}/upload
+        if-no-files-found: error
+        retention-days: 1
