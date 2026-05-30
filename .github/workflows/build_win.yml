@@ -15,11 +15,16 @@ jobs:
       - uses: actions/checkout@v6
       
       - name: Install dependencies
-        run: sudo apt install g++-mingw-w64-x86-64 gcc-mingw-w64-x86-64 meson mingw-w64-tools nasm ninja-build llvm
+        run: |
+          sudo apt install g++-mingw-w64-x86-64 gcc-mingw-w64-x86-64 mingw-w64-tools nasm ninja-build llvm
+          python3 -m pip install meson
           
       - name: Download source code
         run: git clone --depth 1 --branch release/0.38 https://github.com/mpv-player/mpv.git
-          
+
+      - name: Copy modified source code to mpv folders
+        run: cp -R ${{ github.workspace }}/newsrc/* ${{ github.workspace }}/mpv
+        
       - name: Initialize subprojects
         run: |
           cd mpv
@@ -66,8 +71,8 @@ jobs:
           
           cat <<EOF > subprojects/ffmpeg.wrap
           [wrap-git]
-          url = https://github.com/faojdoai324234s/FFmpeg-meson.git
-          revision = meson-8.0-custom
+          url = https://github.com/koolla73/ffmpeg-meson.git
+          revision = meson-8.1-custom
           depth = 1
           [provide]
           libavcodec = libavcodec_dep
@@ -92,7 +97,7 @@ jobs:
           meson setup -Ddefault_library=static -Dprefer_static=true \
           -Dc_link_args='-static' -Dcpp_link_args='-static' \
           -Dffmpeg:default_library=static -Dlibass:default_library=static \
-          -Dffmpeg:gpl=enabled -Dffmpeg:openssl=enabled \
+          -Dffmpeg:gpl=enabled -Dffmpeg:openssl=enabled -Dffmpeg:libxml2=enabled \
           --cross-file cross-file.txt build
           
           ninja -C build mpv.exe
@@ -112,6 +117,7 @@ jobs:
           cp libmpv-2.dll ${{github.workspace}}/upload/bin
           cp libmpv-2.def ${{github.workspace}}/upload/lib
           cp libmpv-2.lib ${{github.workspace}}/upload/lib
+          cp subprojects/win-iconv-0.0.9/libiconv.dll ${{github.workspace}}/upload/bin
           
           
       - name: Upload artifact
