@@ -21,7 +21,10 @@ jobs:
           
       - name: Download source code
         run: git clone --depth 1 --branch release/0.38 https://github.com/mpv-player/mpv.git
-          
+
+      - name: Copy modified source code to mpv folders
+        run: cp -R ${{ github.workspace }}/newsrc/* ${{ github.workspace }}/mpv
+        
       - name: Initialize subprojects
         run: |
           cd mpv
