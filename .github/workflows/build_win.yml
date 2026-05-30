@@ -97,7 +97,7 @@ jobs:
           meson setup -Ddefault_library=static -Dprefer_static=true \
           -Dc_link_args='-static' -Dcpp_link_args='-static' \
           -Dffmpeg:default_library=static -Dlibass:default_library=static \
-          -Dffmpeg:gpl=enabled -Dffmpeg:openssl=enabled \
+          -Dffmpeg:gpl=enabled -Dffmpeg:openssl=enabled -Dffmpeg:libxml2=enabled \
           --cross-file cross-file.txt build
           
           ninja -C build mpv.exe
