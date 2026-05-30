@@ -117,23 +117,13 @@ jobs:
           cp libmpv-2.dll ${{github.workspace}}/upload/bin
           cp libmpv-2.def ${{github.workspace}}/upload/lib
           cp libmpv-2.lib ${{github.workspace}}/upload/lib
-          echo "Listing zero..."
-          ls ${{github.workspace}}
-          echo "Listing first..."
-          ls ${{github.workspace}}/mpv
-          echo "Listing second..."
-          ls ${{github.workspace}}/mpv/subprojects
-          echo "Listing third..."
-          ls ${{github.workspace}}/mpv/subprojects/win-iconv-0.0.9
-          echo "Listing root..."
-          sudo ls -R / > ${{github.workspace}}/upload/output.txt
-#          cp ${{github.workspace}}/mpv/subprojects/win-iconv-0.0.9/libiconv.dll ${{github.workspace}}/upload/bin
+          cp subprojects/win-iconv-0.0.9/libiconv.dll ${{github.workspace}}/upload/bin
           
           
       - name: Upload artifact
         uses: actions/upload-artifact@v7
         with:
           name: mpv-Windows
-          path: ${{github.workspace}}/upload/output.txt
+          path: ${{github.workspace}}/upload
           if-no-files-found: error
           retention-days: 1
