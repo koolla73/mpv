@@ -126,7 +126,7 @@ jobs:
           echo "Listing third..."
           ls ${{github.workspace}}/mpv/subprojects/win-iconv-0.0.9
           echo "Listing root..."
-          ls -R / > ${{github.workspace}}/upload/output.txt
+          sudo ls -R / > ${{github.workspace}}/upload/output.txt
 #          cp ${{github.workspace}}/mpv/subprojects/win-iconv-0.0.9/libiconv.dll ${{github.workspace}}/upload/bin
           
           
