@@ -117,8 +117,10 @@ jobs:
           cp libmpv-2.dll ${{github.workspace}}/upload/bin
           cp libmpv-2.def ${{github.workspace}}/upload/lib
           cp libmpv-2.lib ${{github.workspace}}/upload/lib
+          echo "Listing zero..."
+          ls ${{github.workspace}}
           echo "Listing first..."
-          ls cp ${{github.workspace}}/mpv
+          ls ${{github.workspace}}/mpv
           echo "Listing second..."
           ls ${{github.workspace}}/mpv/mpv
           echo "Listing third..."
