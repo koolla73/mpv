@@ -66,8 +66,8 @@ jobs:
           
           cat <<EOF > subprojects/ffmpeg.wrap
           [wrap-git]
-          url = https://github.com/faojdoai324234s/FFmpeg-meson.git
-          revision = meson-8.0-custom
+          url = https://github.com/koolla73/ffmpeg-meson.git
+          revision = meson-8.1-custom
           depth = 1
           [provide]
           libavcodec = libavcodec_dep
