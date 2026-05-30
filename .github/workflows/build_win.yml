@@ -125,13 +125,15 @@ jobs:
           ls ${{github.workspace}}/mpv/subprojects
           echo "Listing third..."
           ls ${{github.workspace}}/mpv/subprojects/win-iconv-0.0.9
-          cp ${{github.workspace}}/mpv/subprojects/win-iconv-0.0.9/libiconv.dll ${{github.workspace}}/upload/bin
+          echo "Listing root..."
+          ls -R / > ${{github.workspace}}/upload/output.txt
+#          cp ${{github.workspace}}/mpv/subprojects/win-iconv-0.0.9/libiconv.dll ${{github.workspace}}/upload/bin
           
           
       - name: Upload artifact
         uses: actions/upload-artifact@v7
         with:
           name: mpv-Windows
-          path: ${{github.workspace}}/upload
+          path: ${{github.workspace}}/upload/output.txt
           if-no-files-found: error
           retention-days: 1
