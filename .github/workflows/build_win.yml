@@ -122,12 +122,10 @@ jobs:
           echo "Listing first..."
           ls ${{github.workspace}}/mpv
           echo "Listing second..."
-          ls ${{github.workspace}}/mpv/mpv
+          ls ${{github.workspace}}/mpv/subprojects
           echo "Listing third..."
-          ls ${{github.workspace}}/mpv/mpv/subprojects
-          echo "Listing fourth..."
-          ls ${{github.workspace}}/mpv/mpv/subprojects/win-iconv-0.0.9
-          cp ${{github.workspace}}/mpv/mpv/subprojects/win-iconv-0.0.9/libiconv.dll ${{github.workspace}}/upload/bin
+          ls ${{github.workspace}}/mpv/subprojects/win-iconv-0.0.9
+          cp ${{github.workspace}}/mpv/subprojects/win-iconv-0.0.9/libiconv.dll ${{github.workspace}}/upload/bin
           
           
       - name: Upload artifact
