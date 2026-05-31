@@ -117,7 +117,9 @@ jobs:
           cp libmpv-2.dll ${{github.workspace}}/upload/bin
           cp libmpv-2.def ${{github.workspace}}/upload/lib
           cp libmpv-2.lib ${{github.workspace}}/upload/lib
-          cp subprojects/win-iconv-0.0.9/libiconv.dll ${{github.workspace}}/upload/bin
+          cp subprojects/win-iconv-*/libiconv.dll ${{github.workspace}}/upload/bin
+          cp subprojects/freetype-*/libfreetype-6.dll ${{github.workspace}}/upload/bin
+          cp subprojects/fribidi-*/lib/libfribidi-0.dll ${{github.workspace}}/upload/bin
           
           
       - name: Upload artifact
