@@ -48,9 +48,6 @@ jobs:
           meson wrap update-db
           
           meson wrap install expat
-          meson wrap install harfbuzz
-          meson wrap install libpng
-          meson wrap install zlib
           
           mkdir -p subprojects
 
@@ -97,11 +94,15 @@ jobs:
           meson setup -Ddefault_library=static -Dprefer_static=true \
           -Dc_link_args='-static' -Dcpp_link_args='-static' \
           -Dffmpeg:default_library=static -Dlibass:default_library=static \
+          -Dbzip2:default_library=static -Dfreetype2:default_library=static \
+          -Dfribidi:default_library=static -Dglib:default_library=static -Dgoogle-brotli:default_library=static \
+          -Dgraphite2:default_library=static -Dharfbuzz:default_library=static -Dlibpng:default_library=static \
+          -Dopenssl:default_library=static -Dpcre2:default_library=static -Dwin-iconv:default_library=static \
+          -Dzlib:default_library=static \
           -Dffmpeg:gpl=enabled -Dffmpeg:openssl=enabled -Dffmpeg:libxml2=enabled \
           --cross-file cross-file.txt build
           
           ninja -C build mpv.exe
-          cp build/mpv.exe ${{github.workspace}}/upload/bin
 
       - name: Build libmpv
         run: |
@@ -117,8 +118,6 @@ jobs:
           cp libmpv-2.dll ${{github.workspace}}/upload/bin
           cp libmpv-2.def ${{github.workspace}}/upload/lib
           cp libmpv-2.lib ${{github.workspace}}/upload/lib
-          cp subprojects/win-iconv-0.0.9/libiconv.dll ${{github.workspace}}/upload/bin
-          
           
       - name: Upload artifact
         uses: actions/upload-artifact@v7
