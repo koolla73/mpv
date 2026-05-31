@@ -104,7 +104,7 @@ jobs:
           --cross-file cross-file.txt build
           
           ninja -C build mpv.exe
-          cp build/mpv.exe ${{github.workspace}}/upload/bin
+#          cp build/mpv.exe ${{github.workspace}}/upload/bin
 
       - name: Build libmpv
         run: |
