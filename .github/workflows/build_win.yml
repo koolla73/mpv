@@ -115,6 +115,7 @@ jobs:
           cd mpv/build
           gendef libmpv-2.dll
           llvm-dlltool -m i386:x86-64 -d libmpv-2.def -D libmpv-2.dll -l libmpv-2.lib
+          cp mpv.exe ${{github.workspace}}/upload/bin
           cp libmpv-2.dll ${{github.workspace}}/upload/bin
           cp libmpv-2.def ${{github.workspace}}/upload/lib
           cp libmpv-2.lib ${{github.workspace}}/upload/lib
