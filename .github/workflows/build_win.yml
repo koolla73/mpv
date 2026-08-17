@@ -20,7 +20,7 @@ jobs:
           python3 -m pip install meson
           
       - name: Download source code
-        run: git clone --depth 1 --branch release/0.38 https://github.com/mpv-player/mpv.git
+        run: git clone --depth 1 --branch master https://github.com/mpv-player/mpv.git
 
       - name: Copy modified source code to mpv folders
         run: cp -R ${{ github.workspace }}/newsrc/* ${{ github.workspace }}/mpv
@@ -86,7 +86,7 @@ jobs:
           mkdir -p upload/bin
           mkdir -p upload/include/mpv
           mkdir -p upload/lib
-          cp -r mpv/libmpv/. upload/include/mpv
+          cp -r mpv/include/mpv/. upload/include/mpv
           
       - name: Build mpv
         run: |
