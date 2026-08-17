@@ -16,9 +16,7 @@ jobs:
       
       - name: Install dependencies
         run: |
-          vcpkg install shaderc
-          vcpkg install spirv-cross
-          sudo apt install g++-mingw-w64-x86-64 gcc-mingw-w64-x86-64 mingw-w64-tools libspirv-cross-c-shared0 llvm nasm ninja-build spirv-cross
+          sudo apt install g++-mingw-w64-x86-64 gcc-mingw-w64-x86-64 mingw-w64-tools llvm nasm ninja-build
           python3 -m pip install meson
           
       - name: Download source code
@@ -101,7 +99,7 @@ jobs:
           -Dgraphite2:default_library=static -Dharfbuzz:default_library=static -Dlibpng:default_library=static \
           -Dopenssl:default_library=static -Dpcre2:default_library=static -Dwin-iconv:default_library=static \
           -Dzlib:default_library=static \
-          -Dd3d11=enabled \
+          -Dd3d11=disabled \
           -Dffmpeg:gpl=enabled -Dffmpeg:openssl=enabled -Dffmpeg:libxml2=enabled -Dffmpeg:zlib=enabled \
           --cross-file cross-file.txt build
           
