@@ -18,7 +18,7 @@ jobs:
         run: |
           vcpkg install shaderc
           vcpkg install spirv-cross
-          sudo apt install g++-mingw-w64-x86-64 gcc-mingw-w64-x86-64 mingw-w64-tools llvm nasm ninja-build spirv-cross
+          sudo apt install g++-mingw-w64-x86-64 gcc-mingw-w64-x86-64 mingw-w64-tools libspirv-cross-c-shared0 llvm nasm ninja-build spirv-cross
           python3 -m pip install meson
           
       - name: Download source code
