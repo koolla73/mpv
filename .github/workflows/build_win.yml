@@ -16,7 +16,7 @@ jobs:
       
       - name: Install dependencies
         run: |
-          sudo apt install g++-mingw-w64-x86-64 gcc-mingw-w64-x86-64 mingw-w64-tools llvm nasm ninja-build spirv-cross
+          sudo apt install g++-mingw-w64-x86-64 gcc-mingw-w64-x86-64 mingw-w64-tools llvm libspirv-cross-c-shared-dev nasm ninja-build spirv-cross
           python3 -m pip install meson
           
       - name: Download source code
