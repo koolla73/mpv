@@ -16,18 +16,6 @@ jobs:
 
       - name: Install dependencies
         run: sudo apt install g++-mingw-w64-x86-64 gcc-mingw-w64-i686 gcc-mingw-w64-x86-64 mingw-w64-tools ninja-build g++-mingw-w64-i686
-
-      - name: Download shaderc
-        run: git clone --depth 1 --branch main https://github.com/google/shaderc.git
-
-      - name: Compile shaderc
-        run: |
-          cd shaderc
-          mkdir build
-          cd build
-          cmake -GNinja -DCMAKE_BUILD_TYPE=Release ${{ github.workspace }}/shaderc \
-          -DCMAKE_TOOLCHAIN_FILE=${{ github.workspace }}/shaderc/cmake/linux-mingw-toolchain.cmake -DSHADERC_SKIP_TESTS=ON -DSHADERC_SKIP_EXAMPLES=ON
-          ninja
           
       - name: Download SPIRV-Cross source code
         run: git clone --depth 1 --branch main https://github.com/KhronosGroup/SPIRV-Cross.git
@@ -40,3 +28,14 @@ jobs:
           cmake --build build
           sudo cmake --install build
           
+      - name: Download shaderc
+        run: git clone --depth 1 --branch main https://github.com/google/shaderc.git
+
+      - name: Compile shaderc
+        run: |
+          cd shaderc
+          mkdir build
+          cd build
+          cmake -GNinja -DCMAKE_BUILD_TYPE=Release ${{ github.workspace }}/shaderc \
+          -DCMAKE_TOOLCHAIN_FILE=${{ github.workspace }}/shaderc/cmake/linux-mingw-toolchain.cmake -DSHADERC_SKIP_TESTS=ON -DSHADERC_SKIP_EXAMPLES=ON
+          ninja
