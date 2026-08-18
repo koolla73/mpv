@@ -17,7 +17,7 @@ jobs:
       - name: Install dependencies
         run: |
           vcpkg install spirv-cross
-          sudo apt install g++-mingw-w64-x86-64 gcc-mingw-w64-x86-64 mingw-w64-tools glslc llvm nasm ninja-build
+          sudo apt install g++-mingw-w64-x86-64 gcc-mingw-w64-x86-64 mingw-w64-tools glslc libglfw3-dev libgles2-mesa-dev llvm nasm ninja-build
           python3 -m pip install meson
           
       - name: Download source code
