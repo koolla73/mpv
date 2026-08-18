@@ -35,5 +35,7 @@ jobs:
         run: |
           cd shaderc
           mkdir build
-          cmake -S . -B build -GNinja -DCMAKE_BUILD_TYPE=Release -DCMAKE_TOOLCHAIN_FILE=cmake/linux-mingw-toolchain.cmake
+          cd build
+          cmake -GNinja -DCMAKE_BUILD_TYPE=Release ${{ github.workspace }}/shaderc \
+          -DCMAKE_TOOLCHAIN_FILE=${{ github.workspace }}/shaderc/cmake/linux-mingw-toolchain.cmake
           ninja
