@@ -20,7 +20,7 @@ jobs:
           python3 -m pip install meson
           
       - name: Download source code
-        run: git clone --depth 1 --branch master https://github.com/mpv-player/mpv.git
+        run: git clone --depth 1 --branch release/0.41 https://github.com/mpv-player/mpv.git
 
       - name: Copy modified source code to mpv folders
         run: cp -R ${{ github.workspace }}/newsrc/* ${{ github.workspace }}/mpv
@@ -99,6 +99,7 @@ jobs:
           -Dgraphite2:default_library=static -Dharfbuzz:default_library=static -Dlibpng:default_library=static \
           -Dopenssl:default_library=static -Dpcre2:default_library=static -Dwin-iconv:default_library=static \
           -Dzlib:default_library=static \
+          -Dgl=disabled -Dd3d11=enabled \
           -Dffmpeg:gpl=enabled -Dffmpeg:openssl=enabled -Dffmpeg:libxml2=enabled -Dffmpeg:zlib=enabled \
           --cross-file cross-file.txt build
           
