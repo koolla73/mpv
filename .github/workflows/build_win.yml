@@ -100,7 +100,7 @@ jobs:
           -Dgraphite2:default_library=static -Dharfbuzz:default_library=static -Dlibpng:default_library=static \
           -Dopenssl:default_library=static -Dpcre2:default_library=static -Dwin-iconv:default_library=static \
           -Dzlib:default_library=static \
-          -Dlibcurl=enabled -Dlibcurl:default_library=static \
+          -Dlibcurl=enabled \
           -Dffmpeg:gpl=enabled -Dffmpeg:openssl=enabled -Dffmpeg:libxml2=enabled -Dffmpeg:zlib=enabled \
           --cross-file cross-file.txt build
           
