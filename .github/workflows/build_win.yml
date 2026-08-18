@@ -19,7 +19,7 @@ jobs:
           sudo add-apt-repository ppa:oibaf/graphics-drivers
           sudo apt update
           sudo apt upgrade
-          sudo apt install g++-mingw-w64-x86-64 gcc-mingw-w64-x86-64 mingw-w64-tools llvm nasm ninja-build libvulkan1 mesa-vulkan-drivers vulkan-utils
+          sudo apt install g++-mingw-w64-x86-64 gcc-mingw-w64-x86-64 mingw-w64-tools llvm nasm ninja-build libvulkan1 mesa-vulkan-drivers vulkan-tools
           python3 -m pip install meson
           
       - name: Download source code
