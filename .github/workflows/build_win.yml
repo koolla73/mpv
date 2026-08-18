@@ -19,7 +19,7 @@ jobs:
 
       - name: Compile
         run: |
-          cd KhronosGroup/SPIRV-Cross
+          cd SPIRV-Cross
           mkdir build
           cmake -S . -B build -DCMAKE_BUILD_TYPE=Release -DSPIRV_CROSS_SHARED=ON
           cmake --build build
