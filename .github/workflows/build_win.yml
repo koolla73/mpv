@@ -21,6 +21,6 @@ jobs:
         run: |
           cd SPIRV-Cross
           mkdir build
-          cmake -S . -B build -DCMAKE_BUILD_TYPE=Release -DSPIRV_CROSS_SHARED=ON
+          cmake -S . -B build -DCMAKE_BUILD_TYPE=Release -DSPIRV_CROSS_SHARED=ON -DSPIRV_CROSS_STATIC=OFF
           cmake --build build
-          cmake --install build
+          sudo cmake --install build
