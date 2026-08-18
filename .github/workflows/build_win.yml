@@ -13,14 +13,29 @@ jobs:
     runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v6
-          
-      - name: Download source code
+
+      - name: Install dependencies
+        run: sudo apt install ninja-build 
+        
+      - name: Download SPIRV-Cross source code
         run: git clone --depth 1 --branch main https://github.com/KhronosGroup/SPIRV-Cross.git
 
-      - name: Compile
+      - name: Compile SPIRV-Cross
         run: |
           cd SPIRV-Cross
           mkdir build
           cmake -S . -B build -DCMAKE_BUILD_TYPE=Release -DSPIRV_CROSS_SHARED=ON -DSPIRV_CROSS_STATIC=OFF -DSPIRV_CROSS_CLI=OFF
           cmake --build build
           sudo cmake --install build
+
+      - name: Download shaderc
+        run: git clone --depth 1 --branch main https://github.com/google/shaderc.git
+
+      - name: Compile shaderc
+        run: |
+          cd shaderc
+          mkdir build
+          cd build
+          cmake -GNinja -DCMAKE_BUILD_TYPE=Release ${{ github.workspace }}/shaderc \
+          -DCMAKE_TOOLCHAIN_FILE=${{ github.workspace }}/shaderc/cmake/linux-mingw-toolchain.cmake
+          ninja
