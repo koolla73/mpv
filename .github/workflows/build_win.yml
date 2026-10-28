@@ -12,7 +12,7 @@ jobs:
   Build-Win:
     runs-on: ubuntu-24.04
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
       
       - name: Install dependencies
         run: |
@@ -20,7 +20,9 @@ jobs:
           python3 -m pip install meson
           
       - name: Download source code
-        run: git clone --depth 1 --branch release/0.38 https://github.com/mpv-player/mpv.git
+        env:
+          MPV_COMMIT: 82667e3cb116969ec930897a6bf22395e8cd2c36
+        run: git clone --depth 1 --revision ${{env.MPV_COMMIT}} https://github.com/mpv-player/mpv.git
 
       - name: Copy modified source code to mpv folders
         run: cp -R ${{ github.workspace }}/newsrc/* ${{ github.workspace }}/mpv
@@ -69,7 +71,7 @@ jobs:
           cat <<EOF > subprojects/ffmpeg.wrap
           [wrap-git]
           url = https://github.com/koolla73/ffmpeg-meson.git
-          revision = meson-8.1-custom
+          revision = meson-9.0-custom
           depth = 1
           [provide]
           libavcodec = libavcodec_dep
