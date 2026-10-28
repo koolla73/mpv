@@ -70,7 +70,7 @@ jobs:
           
           cat <<EOF > subprojects/ffmpeg.wrap
           [wrap-git]
-          url = https://github.com/koolla73/ffmpeg-meson.git
+          url = https://github.com/koolla73/ffmpeg.git
           revision = meson-9.0-custom
           depth = 1
           [provide]
