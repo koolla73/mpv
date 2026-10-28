@@ -35,7 +35,6 @@
 #include "video/hwdec.h"
 #include "video/mp_image.h"
 #include "video/mp_image_pool.h"
-//#include "video/out/gpu/d3d11_helpers.h"
 
 // For video processor extensions identifiers reference see:
 // https://chromium.googlesource.com/chromium/src/+/5f354f38/ui/gl/swap_chain_presenter.cc
