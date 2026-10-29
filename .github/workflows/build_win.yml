@@ -13,35 +13,9 @@ jobs:
     runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v7
-
-      - name: Install python
-        run: |
-          echo "Checking repo for cache policy..."
-          sudo apt-cache policy python3.8
-          echo "Deleting Python 3.12..."
-          sudo apt remove shim-signed
-          sudo apt remove python3
-          echo "Python 3.12 removed."
-          
-      - name: Update repo
-        run: |
-          sudo apt install software-properties-common
-          sudo add-apt-repository ppa:deadsnakes/ppa -y
-          cat <<EOF | sudo tee /etc/apt/preferences.d/python3.8.pref
-          Package: *
-          Pin: release o=LP-PPA-deadsnakes
-          Pin-Priority: 100
-          
-          Package: python3.8*
-          Pin: release o=LP-PPA-deadsnakes
-          Pin-Priority: 700
-          EOF
-          
-          echo "Updating APT..."
-          sudo apt update
-          
-          sudo apt install python3.8
-          python3.8 --version          
+      - uses: actions/setup-python@v7
+        with:
+          python-version: '3.8.18'
           
       - name: Install dependencies
         run: |
