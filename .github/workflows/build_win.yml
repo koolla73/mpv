@@ -16,6 +16,12 @@ jobs:
       
       - name: Install dependencies
         run: |
+          sudo apt remove python3.12
+          sudo apt update
+          sudo apt-cache policy python3.8
+          sudo apt install python3.8
+          python --version
+          a
           sudo apt install g++-mingw-w64-x86-64 gcc-mingw-w64-x86-64 mingw-w64-tools nasm ninja-build llvm
           python3 -m pip install meson
           
